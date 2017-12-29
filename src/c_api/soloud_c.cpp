@@ -45,7 +45,6 @@ freely, subject to the following restrictions:
 #include "../include/soloud_sfxr.h"
 #include "../include/soloud_flangerfilter.h"
 #include "../include/soloud_dcremovalfilter.h"
-#include "../include/soloud_openmpt.h"
 #include "../include/soloud_monotone.h"
 #include "../include/soloud_tedsid.h"
 
@@ -1445,124 +1444,6 @@ int DCRemovalFilter_setParamsEx(void * aClassPtr, float aLength)
 {
 	DCRemovalFilter * cl = (DCRemovalFilter *)aClassPtr;
 	return cl->setParams(aLength);
-}
-
-void Openmpt_destroy(void * aClassPtr)
-{
-  delete (Openmpt *)aClassPtr;
-}
-
-void * Openmpt_create()
-{
-  return (void *)new Openmpt;
-}
-
-int Openmpt_load(void * aClassPtr, const char * aFilename)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	return cl->load(aFilename);
-}
-
-int Openmpt_loadMem(void * aClassPtr, unsigned char * aMem, unsigned int aLength)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	return cl->loadMem(aMem, aLength);
-}
-
-int Openmpt_loadMemEx(void * aClassPtr, unsigned char * aMem, unsigned int aLength, int aCopy, int aTakeOwnership)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	return cl->loadMem(aMem, aLength, !!aCopy, !!aTakeOwnership);
-}
-
-int Openmpt_loadFile(void * aClassPtr, File * aFile)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	return cl->loadFile(aFile);
-}
-
-void Openmpt_setVolume(void * aClassPtr, float aVolume)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->setVolume(aVolume);
-}
-
-void Openmpt_setLooping(void * aClassPtr, int aLoop)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->setLooping(!!aLoop);
-}
-
-void Openmpt_set3dMinMaxDistance(void * aClassPtr, float aMinDistance, float aMaxDistance)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->set3dMinMaxDistance(aMinDistance, aMaxDistance);
-}
-
-void Openmpt_set3dAttenuation(void * aClassPtr, unsigned int aAttenuationModel, float aAttenuationRolloffFactor)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->set3dAttenuation(aAttenuationModel, aAttenuationRolloffFactor);
-}
-
-void Openmpt_set3dDopplerFactor(void * aClassPtr, float aDopplerFactor)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->set3dDopplerFactor(aDopplerFactor);
-}
-
-void Openmpt_set3dProcessing(void * aClassPtr, int aDo3dProcessing)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->set3dProcessing(!!aDo3dProcessing);
-}
-
-void Openmpt_set3dListenerRelative(void * aClassPtr, int aListenerRelative)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->set3dListenerRelative(!!aListenerRelative);
-}
-
-void Openmpt_set3dDistanceDelay(void * aClassPtr, int aDistanceDelay)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->set3dDistanceDelay(!!aDistanceDelay);
-}
-
-void Openmpt_set3dCollider(void * aClassPtr, AudioCollider * aCollider)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->set3dCollider(aCollider);
-}
-
-void Openmpt_set3dColliderEx(void * aClassPtr, AudioCollider * aCollider, int aUserData)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->set3dCollider(aCollider, aUserData);
-}
-
-void Openmpt_set3dAttenuator(void * aClassPtr, AudioAttenuator * aAttenuator)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->set3dAttenuator(aAttenuator);
-}
-
-void Openmpt_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
-}
-
-void Openmpt_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->setFilter(aFilterId, aFilter);
-}
-
-void Openmpt_stop(void * aClassPtr)
-{
-	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->stop();
 }
 
 void Monotone_destroy(void * aClassPtr)

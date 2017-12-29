@@ -54,7 +54,6 @@ char *gIncludeFile[] =
 	"../include/soloud_sfxr.h",
 	"../include/soloud_flangerfilter.h",
 	"../include/soloud_dcremovalfilter.h",
-	"../include/soloud_openmpt.h",
 	"../include/soloud_monotone.h",
 	"../include/soloud_tedsid.h"
 };

@@ -408,30 +408,6 @@ int DCRemovalFilter_setParams(DCRemovalFilter * aDCRemovalFilter);
 int DCRemovalFilter_setParamsEx(DCRemovalFilter * aDCRemovalFilter, float aLength /* = 0.1f */);
 
 /*
- * Openmpt
- */
-void Openmpt_destroy(Openmpt * aOpenmpt);
-Openmpt * Openmpt_create();
-int Openmpt_load(Openmpt * aOpenmpt, const char * aFilename);
-int Openmpt_loadMem(Openmpt * aOpenmpt, unsigned char * aMem, unsigned int aLength);
-int Openmpt_loadMemEx(Openmpt * aOpenmpt, unsigned char * aMem, unsigned int aLength, int aCopy /* = false */, int aTakeOwnership /* = true */);
-int Openmpt_loadFile(Openmpt * aOpenmpt, File * aFile);
-void Openmpt_setVolume(Openmpt * aOpenmpt, float aVolume);
-void Openmpt_setLooping(Openmpt * aOpenmpt, int aLoop);
-void Openmpt_set3dMinMaxDistance(Openmpt * aOpenmpt, float aMinDistance, float aMaxDistance);
-void Openmpt_set3dAttenuation(Openmpt * aOpenmpt, unsigned int aAttenuationModel, float aAttenuationRolloffFactor);
-void Openmpt_set3dDopplerFactor(Openmpt * aOpenmpt, float aDopplerFactor);
-void Openmpt_set3dProcessing(Openmpt * aOpenmpt, int aDo3dProcessing);
-void Openmpt_set3dListenerRelative(Openmpt * aOpenmpt, int aListenerRelative);
-void Openmpt_set3dDistanceDelay(Openmpt * aOpenmpt, int aDistanceDelay);
-void Openmpt_set3dCollider(Openmpt * aOpenmpt, AudioCollider * aCollider);
-void Openmpt_set3dColliderEx(Openmpt * aOpenmpt, AudioCollider * aCollider, int aUserData /* = 0 */);
-void Openmpt_set3dAttenuator(Openmpt * aOpenmpt, AudioAttenuator * aAttenuator);
-void Openmpt_setInaudibleBehavior(Openmpt * aOpenmpt, int aMustTick, int aKill);
-void Openmpt_setFilter(Openmpt * aOpenmpt, unsigned int aFilterId, Filter * aFilter);
-void Openmpt_stop(Openmpt * aOpenmpt);
-
-/*
  * Monotone
  */
 void Monotone_destroy(Monotone * aMonotone);

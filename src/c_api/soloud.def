@@ -236,26 +236,6 @@ EXPORTS
 	DCRemovalFilter_create
 	DCRemovalFilter_setParams
 	DCRemovalFilter_setParamsEx
-	Openmpt_destroy
-	Openmpt_create
-	Openmpt_load
-	Openmpt_loadMem
-	Openmpt_loadMemEx
-	Openmpt_loadFile
-	Openmpt_setVolume
-	Openmpt_setLooping
-	Openmpt_set3dMinMaxDistance
-	Openmpt_set3dAttenuation
-	Openmpt_set3dDopplerFactor
-	Openmpt_set3dProcessing
-	Openmpt_set3dListenerRelative
-	Openmpt_set3dDistanceDelay
-	Openmpt_set3dCollider
-	Openmpt_set3dColliderEx
-	Openmpt_set3dAttenuator
-	Openmpt_setInaudibleBehavior
-	Openmpt_setFilter
-	Openmpt_stop
 	Monotone_destroy
 	Monotone_create
 	Monotone_setParams
