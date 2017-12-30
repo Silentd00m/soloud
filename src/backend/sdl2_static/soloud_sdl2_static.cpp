@@ -21,7 +21,9 @@ freely, subject to the following restrictions:
    3. This notice may not be removed or altered from any source
    distribution.
 */
+
 #include <stdlib.h>
+#include <string>
 
 #include "soloud.h"
 
@@ -89,15 +91,29 @@ result sdl2static_init(SoLoud::Soloud* aSoloud, int const& aDevice,
     //     }
     // }
 
-    SDL_AudioDeviceID dev = SDL_OpenAudioDevice(NULL, 0, &as, &gActiveAudioSpec,
-                                                SDL_AUDIO_ALLOW_FORMAT_CHANGE);
+    SDL_AudioDeviceID dev;
+
+    if(aDevice != -1)
+        dev = SDL_OpenAudioDevice(SDL_GetAudioDeviceName(aDevice, 0), 0, &as,
+                                  &gActiveAudioSpec,
+                                  SDL_AUDIO_ALLOW_FORMAT_CHANGE);
+    else
+        dev = SDL_OpenAudioDevice(SDL_GetAudioDeviceName(0, 0), 0, &as,
+                                  &gActiveAudioSpec,
+                                  SDL_AUDIO_ALLOW_FORMAT_CHANGE);
+
+    if(!dev)
+        throw(std::string("Failed to initialize audio device: ") +
+              SDL_GetError());
+
+    aSoloud->mDeviceHandle = dev;
 
     aSoloud->postinit(gActiveAudioSpec.freq, gActiveAudioSpec.samples, aFlags,
                       gActiveAudioSpec.channels);
 
     aSoloud->mBackendCleanupFunc = soloud_sdl2static_deinit;
 
-    SDL_PauseAudio(0);
+    SDL_PauseAudioDevice(dev, 0);
     aSoloud->mBackendString = "SDL2 (static)";
     return 0;
 }
