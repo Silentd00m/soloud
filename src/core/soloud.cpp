@@ -190,7 +190,7 @@ namespace SoLoud
 #if defined(WITH_SDL2_STATIC)
         if (aBufferSize == Soloud::AUTO) buffersize = 2048;
 
-		int ret = sdl2static_init(this, aFlags, samplerate, buffersize, aChannels);
+		int ret = sdl2static_init(this, aDevice, aFlags, samplerate, buffersize, aChannels);
 		if (ret == 0)
 		{
 			inited = 1;
