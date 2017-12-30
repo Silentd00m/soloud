@@ -165,7 +165,7 @@ void Soloud::deinit()
     mAudioThreadMutex = NULL;
 }
 
-result Soloud::init(unsigned int aFlags, int const& aDevice,
+result Soloud::init(int const& aDevice, unsigned int aFlags,
                     unsigned int aBackend, unsigned int aSamplerate,
                     unsigned int aBufferSize, unsigned int aChannels)
 {
