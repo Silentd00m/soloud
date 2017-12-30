@@ -125,14 +125,7 @@ namespace SoLoud
 		enum BACKENDS
 		{
 			AUTO = 0,
-			SDL,
 			SDL2,
-			PORTAUDIO,
-			WINMM,
-			XAUDIO2,
-			WASAPI,
-			ALSA,
-			OSS,
 			OPENAL,
 			COREAUDIO,
 			OPENSLES,
@@ -150,7 +143,7 @@ namespace SoLoud
 		};
 
 		// Initialize SoLoud. Must be called before SoLoud can be used.
-		result init(unsigned int aFlags = Soloud::CLIP_ROUNDOFF, unsigned int aBackend = Soloud::AUTO, unsigned int aSamplerate = Soloud::AUTO, unsigned int aBufferSize = Soloud::AUTO, unsigned int aChannels = 2);
+		result init(unsigned int aFlags = Soloud::CLIP_ROUNDOFF, int aDevice = -1, unsigned int aSamplerate = Soloud::AUTO, unsigned int aBufferSize = Soloud::AUTO, unsigned int aChannels = 2);
 
 		// Deinitialize SoLoud. Must be called before shutting down.
 		void deinit();
@@ -465,6 +458,7 @@ namespace SoLoud
 		unsigned int mActiveVoiceCount;
 		// Active voices list needs to be recalculated
 		bool mActiveVoiceDirty;
+        int mDeviceHandle;
 
 		// Remove all non-active voices from group
 		void trimVoiceGroup(handle aVoiceGroupHandle);

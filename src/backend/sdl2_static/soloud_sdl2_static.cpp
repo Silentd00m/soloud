@@ -22,6 +22,7 @@ freely, subject to the following restrictions:
    distribution.
 */
 #include <stdlib.h>
+#include <string>
 
 #include "soloud.h"
 
@@ -67,11 +68,13 @@ namespace SoLoud
 
 	static void soloud_sdl2static_deinit(SoLoud::Soloud *aSoloud)
 	{
-		SDL_CloseAudio();
+        SDL_CloseAudioDevice(aSoloud->mDeviceHandle);
 	}
 
-	result sdl2static_init(SoLoud::Soloud *aSoloud, unsigned int aFlags, unsigned int aSamplerate, unsigned int aBuffer, unsigned int aChannels)
+	result sdl2static_init(SoLoud::Soloud *aSoloud, int aDevice, unsigned int aFlags, unsigned int aSamplerate, unsigned int aBuffer, unsigned int aChannels)
 	{
+        int devices = SDL_GetNumAudioDevices(0);
+        
 		SDL_AudioSpec as;
 		as.freq = aSamplerate;
 		as.format = AUDIO_F32;
@@ -79,15 +82,27 @@ namespace SoLoud
 		as.samples = aBuffer;
 		as.callback = soloud_sdl2static_audiomixer;
 		as.userdata = (void*)aSoloud;
-
-		if (SDL_OpenAudio(&as, &gActiveAudioSpec) < 0)
-		{
-			as.format = AUDIO_S16;
-			if (SDL_OpenAudio(&as, &gActiveAudioSpec) < 0 || gActiveAudioSpec.format != AUDIO_S16)
-			{
-				return UNKNOWN_ERROR;
-			}
-		}
+        
+        if(aDevice != -1) {
+            if(devices <= 1 || aDevice > devices)
+                return UNKNOWN_ERROR;
+        
+            std::string device_name = SDL_GetAudioDeviceName(aDevice, 0);
+            
+            if((aSoloud->mDeviceHandle = SDL_OpenAudioDevice(device_name.c_str(), 0, &as, &gActiveAudioSpec, SDL_AUDIO_ALLOW_FORMAT_CHANGE)) < 0) {
+                as.format = AUDIO_S16;
+                
+                if((aSoloud->mDeviceHandle = SDL_OpenAudioDevice(device_name.c_str(), 0, &as, &gActiveAudioSpec, SDL_AUDIO_ALLOW_FORMAT_CHANGE)) < 0 || gActiveAudioSpec.format != AUDIO_S16)
+                    return UNKNOWN_ERROR;
+            }
+        } else {
+            if((aSoloud->mDeviceHandle = SDL_OpenAudioDevice(NULL, 0, &as, &gActiveAudioSpec, SDL_AUDIO_ALLOW_FORMAT_CHANGE)) < 0) {
+                as.format = AUDIO_S16;
+                
+                if((aSoloud->mDeviceHandle = SDL_OpenAudioDevice(NULL, 0, &as, &gActiveAudioSpec, SDL_AUDIO_ALLOW_FORMAT_CHANGE)) < 0 || gActiveAudioSpec.format != AUDIO_S16)
+                    return UNKNOWN_ERROR;
+            }
+        }
 
 		aSoloud->postinit(gActiveAudioSpec.freq, gActiveAudioSpec.samples, aFlags, gActiveAudioSpec.channels);
 
